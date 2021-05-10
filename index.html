@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="data/INCENDIOSPORTUGALao2017_3.js"></script>
+        <script src="data/INCENDIOSNOROESTE1216octubre2017_4.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[40.1030537454,-10.3741468269],[43.4744402556,-3.66156733302]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        var measureControl = new L.Control.Measure({
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        var basemap0 = L.tileLayer('http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>,Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>',
+            maxZoom: 28
+        });
+        basemap0.addTo(map);
+        function setBounds() {
+        }
+            var overlay_PNOA_0 = L.tileLayer.wms('http://www.idee.es/wms/PNOA/PNOA?', {
+                layers: 'PNOA',
+                format: 'image/jpeg',
+                uppercase: true,
+                transparent: true,
+                continuousWorld : true,
+                opacity: 1.0
+            });
+            var overlay_RGB1284ShortwaveInfraredSENTINELHUB_1 = L.tileLayer.wms('https://services.sentinel-hub.com/v1/wms/fa2e8027-7672-4bd9-afa2-5d52ebe0581c', {
+                layers: 'RGB_12_8_4',
+                format: 'image/jpeg',
+                uppercase: true,
+                transparent: true,
+                continuousWorld : true,
+                opacity: 1.0
+            });
+            var overlay_MapasrasterdelIGN_2 = L.tileLayer.wms('http://www.ign.es/wms-inspire/mapa-raster?', {
+                layers: 'mtn_rasterizado',
+                format: 'image/png',
+                uppercase: true,
+                transparent: true,
+                continuousWorld : true,
+                opacity: 1.0
+            });
+        function pop_INCENDIOSPORTUGALao2017_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">ÁREA (ha)</th>\
+                        <td>' + (feature.properties['ÁREA (ha)'] !== null ? Autolinker.link(String(feature.properties['ÁREA (ha)'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">EDICIÓN</th>\
+                        <td>' + (feature.properties['EDICIÓN'] !== null ? Autolinker.link(String(feature.properties['EDICIÓN'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">web</th>\
+                        <td>' + (feature.properties['web'] !== null ? Autolinker.link(String(feature.properties['web'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_INCENDIOSPORTUGALao2017_3_0() {
+            return {
+                pane: 'pane_INCENDIOSPORTUGALao2017_3',
+                opacity: 1,
+                color: 'rgba(255,0,4,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 1,
+                fillColor: 'rgba(0,0,0,0.466666666667)',
+            }
+        }
+        map.createPane('pane_INCENDIOSPORTUGALao2017_3');
+        map.getPane('pane_INCENDIOSPORTUGALao2017_3').style.zIndex = 403;
+        map.getPane('pane_INCENDIOSPORTUGALao2017_3').style['mix-blend-mode'] = 'normal';
+    var layer_INCENDIOSPORTUGALao2017_3 = new L.geoJson(json_INCENDIOSPORTUGALao2017_3, {
+        attribution: '<a href=""></a>',
+        pane: 'pane_INCENDIOSPORTUGALao2017_3',
+        onEachFeature: pop_INCENDIOSPORTUGALao2017_3,
+        style: style_INCENDIOSPORTUGALao2017_3_0,
+    });
+        bounds_group.addLayer(layer_INCENDIOSPORTUGALao2017_3);
+        map.addLayer(layer_INCENDIOSPORTUGALao2017_3);
+        function pop_INCENDIOSNOROESTE1216octubre2017_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">municipio</th>\
+                        <td>' + (feature.properties['municipio'] !== null ? Autolinker.link(String(feature.properties['municipio'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">provincia</th>\
+                        <td>' + (feature.properties['provincia'] !== null ? Autolinker.link(String(feature.properties['provincia'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">área (ha)</th>\
+                        <td>' + (feature.properties['área (ha)'] !== null ? Autolinker.link(String(feature.properties['área (ha)'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">fecha_act</th>\
+                        <td>' + (feature.properties['fecha_act'] !== null ? Autolinker.link(String(feature.properties['fecha_act'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">base_perim</th>\
+                        <td>' + (feature.properties['base_perim'] !== null ? Autolinker.link(String(feature.properties['base_perim'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">estado</th>\
+                        <td>' + (feature.properties['estado'] !== null ? Autolinker.link(String(feature.properties['estado'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_INCENDIOSNOROESTE1216octubre2017_4_0() {
+            return {
+                pane: 'pane_INCENDIOSNOROESTE1216octubre2017_4',
+                opacity: 1,
+                color: 'rgba(255,0,4,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 1,
+                fillColor: 'rgba(0,0,0,0.270588235294)',
+            }
+        }
+        map.createPane('pane_INCENDIOSNOROESTE1216octubre2017_4');
+        map.getPane('pane_INCENDIOSNOROESTE1216octubre2017_4').style.zIndex = 404;
+        map.getPane('pane_INCENDIOSNOROESTE1216octubre2017_4').style['mix-blend-mode'] = 'normal';
+    var layer_INCENDIOSNOROESTE1216octubre2017_4 = new L.geoJson(json_INCENDIOSNOROESTE1216octubre2017_4, {
+        attribution: '<a href=""></a>',
+        pane: 'pane_INCENDIOSNOROESTE1216octubre2017_4',
+        onEachFeature: pop_INCENDIOSNOROESTE1216octubre2017_4,
+        style: style_INCENDIOSNOROESTE1216octubre2017_4_0,
+    });
+        bounds_group.addLayer(layer_INCENDIOSNOROESTE1216octubre2017_4);
+        map.addLayer(layer_INCENDIOSNOROESTE1216octubre2017_4);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/INCENDIOSNOROESTE1216octubre2017_4.png" /> INCENDIOS_NOROESTE (12-16 octubre 2017)': layer_INCENDIOSNOROESTE1216octubre2017_4,'<img src="legend/INCENDIOSPORTUGALao2017_3.png" /> INCENDIOS PORTUGAL (año 2017)': layer_INCENDIOSPORTUGALao2017_3,"Mapas raster del IGN": overlay_MapasrasterdelIGN_2,"RGB (12,8,4) - Short-wave Infrared SENTINEL HUB": overlay_RGB1284ShortwaveInfraredSENTINELHUB_1,"PNOA": overlay_PNOA_0,}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
